@@ -134,23 +134,19 @@ class InstagramBot():
         else:
             browser.find_element(by=By.XPATH, value='//div[text()="Подписаться"]').click()
             time.sleep(random.randrange(2, 4))
-
+            
+#need to add saving video content
     def save_content_by_url(self, url):
         all_content_urls= []
         browser = self.browser
         browser.get(url)
         time.sleep(random.randrange(2, 4))
-        # url_img = browser.find_element(by=By.CLASS_NAME, value='_aagt').get_attribute('src')
-        # browser.get(url_img)
-        # time.sleep(10)
-        # browser.get(url)
         if self.element_exists('css', 'button[aria-label="Далее"]'):
             num = 0
             for _ in browser.find_elements(by=By.CLASS_NAME, value='_acnb'):
                 num += 1
             for img in browser.find_elements(by=By.CLASS_NAME, value='_aagt')[0:num]:
                 all_content_urls.append(img.get_attribute('src'))
-                #browser.get(img_url)
                 time.sleep(1)
         else:
             all_content_urls.append(browser.find_elements(by=By.CLASS_NAME, value='_aagt')[0].get_attribute('src'))
@@ -159,22 +155,6 @@ class InstagramBot():
             with open(f'data/{content.split("/")[5].split(".")[0]}_img.jpg', 'wb') as img_file:
                 img_file.write(request.content)
         self.close_browser()
-        # while self.class_exists('_aahi'):
-        #    browser.find_element(by=By.CLASS_NAME, value='_aahi').click()
-        #    time.sleep(random.randrange(2, 4))
-        #    url_img = browser.find_element(by=By.CLASS_NAME, value='_aagt').get_attribute('src')
-        #    browser.get(url_img)
-        #    time.sleep(10)
-        #    browser.get(url)
-
-
-accounts = ['hotel_massage_in_dubai', 'therealkslibrarygirl', 'bebasuki', 'massage_dubai_escorts91', '17_ilk_14',
-            'massage_in_dubai_girl_vip_1', 'onepiece.fanss', 'test_bbb12345432']
+        
 my_bot = InstagramBot(username, password)
 my_bot.login()
-# my_bot.like_photo_by_hashtag('beach')
-# my_bot.like_all_photo_user('therealkslibrarygirl')
-#my_bot.follow_by_url('onepiece.fanss')
-#my_bot.save_content_by_url('https://www.instagram.com/p/CfPNgfPpSI-/')
-#my_bot.save_content_by_url('https://www.instagram.com/p/CfXE5uhP2Wd/')
-my_bot.save_content_by_url('https://www.instagram.com/p/Ce3_mIdqUnv/')
